@@ -7,6 +7,7 @@ import "./SingleProduct.css";
 import axios from "axios";
 
 function SingleProduct() {
+  const productionBackendUrl = process.env.REACT_APP_BACKEND_URL;
   const [productInfo, setProductInfo] = useState({});
 
   const { productsArray, setProductsArray, starRating } =
@@ -22,17 +23,22 @@ function SingleProduct() {
     }
   }, [productsArray, id]);
 
-  function handleDelete(productId) {
+  async function handleDelete(productId) {
     const deleteConfirm = window.confirm(
       "Wait! Are you sure you want to delete this product?"
     );
     if (deleteConfirm) {
-      const updatedAllProducts = productsArray.filter(
-        (item) => item.id !== productId
-      );
-      setProductsArray(updatedAllProducts);
-      axios.delete(`http://localhost:3001/products/${productId}`);
-      navigate("/products");
+      try {
+        const updatedAllProducts = productsArray.filter(
+          (item) => item.id !== productId
+        );
+        setProductsArray(updatedAllProducts);
+        await axios.delete(`${productionBackendUrl}/products/${productId}`);
+        alert("The product has been deleted!");
+        navigate("/products");
+      } catch (error) {
+        return error;
+      }
     }
   }
 

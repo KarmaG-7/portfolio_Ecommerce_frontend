@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./All_products.css";
 import { productsListContent } from "../Context/Context";
@@ -12,7 +12,7 @@ function AllProducts() {
 
   const filteredProducts = productsArray.filter((item) => {
     if (selectedCategory === "All products") {
-      return productsArray;
+      return true;
     } else {
       return item.category === selectedCategory;
     }
@@ -38,8 +38,8 @@ function AllProducts() {
         <li>
           <select onChange={(e) => handleOrderChange(e.target.value)}>
             <option value="">Sort by Price</option>
-            <option value="desc">Price:High to low</option>
-            <option value="asc">Price:Low to high</option>
+            <option value="desc">Price: High to low</option>
+            <option value="asc">Price: Low to high</option>
           </select>
         </li>
 

@@ -3,13 +3,13 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { productsListContent } from "../Context/Context";
+import { Button } from "../Button/Button";
 
 function EditProduct() {
+  const productionBackendUrl = process.env.REACT_APP_BACKEND_URL;
   const { id } = useParams();
   const navigate = useNavigate();
   const { productsArray } = useContext(productsListContent);
-
-  const [is_popularValue, setIs_popularValue] = useState(false);
 
   const [selectedProduct, setSelectedProduct] = useState({
     product_name: "",
@@ -17,7 +17,7 @@ function EditProduct() {
     rating: 0,
     product_image: "",
     category: "",
-    is_popular: is_popularValue,
+    is_popular: false,
     product_description: "",
   });
 
@@ -30,10 +30,10 @@ function EditProduct() {
   }, [productsArray, id]);
 
   function handlePopularChange() {
-    setSelectedProduct((prevState) => ({
-      ...prevState,
-      is_popular: !prevState.is_popular,
-    }));
+    setSelectedProduct({
+      ...selectedProduct,
+      is_popular: !selectedProduct.is_popular,
+    });
   }
 
   function handleChange(e) {
@@ -60,9 +60,10 @@ function EditProduct() {
 
       productsArray[findIndex] = selectedProduct;
       await axios.put(
-        `http://localhost:3001/products/edit/${id}`,
+        `${productionBackendUrl}/products/edit/${id}`,
         selectedProduct
       );
+      alert("The product has been successfully updated!");
       navigate(`/products/${id}`);
     } catch (error) {
       return error;
@@ -155,7 +156,7 @@ function EditProduct() {
           >
             <option value="">select one from the dropdown</option>
             <option value="Beauty">Beauty</option>
-            <option value="electronics">Electronics</option>
+            <option value="Electronics">Electronics</option>
             <option value="Home & Kitchen">Home & Kitchen</option>
             <option value="Books">Books</option>
           </select>
@@ -173,9 +174,7 @@ function EditProduct() {
           ></textarea>
         </div>
 
-        <button type="submit" className="button-form btn btn-primary">
-          Submit
-        </button>
+        <Button>Submit</Button>
       </form>
     </div>
   );

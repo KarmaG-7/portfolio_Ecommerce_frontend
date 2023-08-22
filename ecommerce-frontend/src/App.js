@@ -20,16 +20,18 @@ import "./App.css";
 import { GlobalStyle } from "./components/GlobalStyle/GlobalStyle";
 
 function App() {
+  const productionBackendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const [productsArray, setProductsArray] = useState([]);
-  const url = "http://localhost:3001";
 
   useEffect(() => {
     fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function fetchProducts() {
     try {
-      const result = await axios.get(`${url}/products`);
+      const result = await axios.get(`${productionBackendUrl}/products`);
       setProductsArray(result.data);
     } catch (error) {
       console.error("Error fetching products:", error);

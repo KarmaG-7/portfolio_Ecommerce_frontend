@@ -6,8 +6,10 @@ import { productsListContent } from "../Context/Context";
 import { Button } from "../Button/Button";
 
 function AddProduct() {
+  const productionBackendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const navigate = useNavigate();
-  const [is_popularValue, setIs_popularValue] = useState(false);
+
   const { productsArray, setProductsArray } = useContext(productsListContent);
   const [newProduct, setNewProduct] = useState({
     product_name: "",
@@ -15,7 +17,7 @@ function AddProduct() {
     rating: 0,
     product_image: "",
     category: "",
-    is_popular: is_popularValue,
+    is_popular: false,
     product_description: "",
   });
 
@@ -23,9 +25,10 @@ function AddProduct() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3001/products/new",
+        `${productionBackendUrl}/products/new`,
         newProduct
       );
+      alert("The product has been successfully added!");
       const addedProductWithID = { ...newProduct, id: response.data.id };
       setProductsArray([...productsArray, addedProductWithID]);
       navigate("/products");
@@ -42,10 +45,10 @@ function AddProduct() {
   }
 
   function handlePopularChange() {
-    setNewProduct((prevState) => ({
-      ...prevState,
-      is_popular: !prevState.is_popular,
-    }));
+    setNewProduct({
+      ...newProduct,
+      is_popular: !newProduct.is_popular,
+    });
   }
 
   function handleSelectChange(e) {

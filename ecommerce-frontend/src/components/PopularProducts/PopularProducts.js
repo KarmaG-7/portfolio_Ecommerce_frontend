@@ -45,6 +45,8 @@ function PopularProducts() {
 
 const MainBody = styled.section`
   margin-top: 5rem;
+  background-color: ${({ theme }) => theme.colors.bg};
+  padding: 3rem;
   img {
     height: 30vh;
   }
