@@ -1,0 +1,24 @@
+img {
+  height: 30vh;
+  width: 25rem;
+}
+.each-product {
+  border: 2px solid lightgray;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+.all-product,
+.selectMenu {
+  width: 70%;
+}
+.stretched-link {
+  cursor: pointer;
+}
+
+.list-products {
+  margin-top: 5rem;
+}
+.selectMenu {
+  display: flex;
+  gap: 4rem;
+}

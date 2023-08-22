@@ -1,0 +1,22 @@
+.img-fluid {
+  height: 500px;
+  width: fit-content;
+  padding: 30px;
+}
+.detail {
+  margin-top: 100px;
+  border: 3px solid lightgray;
+  border-radius: 6px;
+}
+.info {
+  padding: 30px;
+}
+.category {
+  color: rgb(25, 164, 211);
+}
+.buttons {
+  padding-top: 70px;
+}
+.btn {
+  padding: 3px 10px;
+}

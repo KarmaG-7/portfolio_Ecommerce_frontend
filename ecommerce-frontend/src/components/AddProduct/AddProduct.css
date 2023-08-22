@@ -1,0 +1,39 @@
+.form-container {
+  text-align: center;
+  margin: 30px auto;
+  width: 50%;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+h2 {
+  padding-top: 20px;
+}
+
+label {
+  margin: 20px;
+}
+.form-control {
+  width: 60%;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+  border-radius: 4px;
+  margin: 0 auto;
+}
+
+.button-form {
+  margin: 7px;
+}
+
+input[type="checkbox"] {
+  height: 15px;
+  width: 20px;
+}
+
+.submitBttn {
+  margin: 20px auto;
+}
