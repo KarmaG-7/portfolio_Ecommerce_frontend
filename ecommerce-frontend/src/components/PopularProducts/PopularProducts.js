@@ -3,41 +3,51 @@ import { homeProductsListContent } from "../Context/Context";
 import { styled } from "styled-components";
 import { Button } from "../Button/Button";
 import { NavLink } from "react-router-dom";
+import Spinner from "../Spinner/Spinner";
 
 function PopularProducts() {
   const { productsArray } = useContext(homeProductsListContent);
   const [popularProductsArray, setPopularProductsArray] = useState([]);
+  const [loadingState, setLoadingState] = useState(false);
 
   useEffect(() => {
+    setLoadingState(true);
     const topRatedProducts = productsArray.filter(
       (item) => item.is_popular === true
     );
     setPopularProductsArray(topRatedProducts);
+    if (productsArray.length > 0) {
+      setLoadingState(false);
+    }
   }, [productsArray]);
   return (
     <>
       <h3>Our Popular Products</h3>
       <MainBody className="container grid grid-three-columns">
-        {popularProductsArray.map((item) => (
-          <div key={item.id} className="card" style={{ width: "22rem" }}>
-            <img
-              className="card-img-top"
-              src={item.product_image}
-              alt="Card image cap"
-            />
-            <div className="card-body">
-              <h5 className="card-title">
-                <span>{item.product_name}</span>
-              </h5>
-              <p className="card-text">
-                {item.product_description.substring(0, 60)}....
-              </p>
-              <NavLink to={`/products/${item.id}`}>
-                <Button className="seeDetails">See Details</Button>
-              </NavLink>
+        {loadingState ? (
+          <Spinner />
+        ) : (
+          popularProductsArray.map((item) => (
+            <div key={item.id} className="card" style={{ width: "22rem" }}>
+              <img
+                className="card-img-top"
+                src={item.product_image}
+                alt="product"
+              />
+              <div className="card-body">
+                <h5 className="card-title">
+                  <span>{item.product_name}</span>
+                </h5>
+                <p className="card-text">
+                  {item.product_description.substring(0, 60)}....
+                </p>
+                <NavLink to={`/products/${item.id}`}>
+                  <Button className="seeDetails">See Details</Button>
+                </NavLink>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </MainBody>
     </>
   );
